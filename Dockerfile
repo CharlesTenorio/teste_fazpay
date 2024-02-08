@@ -1,7 +1,6 @@
-# Base API Product
-
-FROM golang:1.20.5-alpine3.18 AS base_builder
+FROM golang:1.21.3-alpine3.18 AS base_builder
 LABEL maintainer Charles Tenorio <charles.tenorio.dev@gmail.com>
+
 
 WORKDIR /myapp/
 
@@ -17,8 +16,7 @@ WORKDIR /myapp/
 
 COPY . .
 
-ARG PROJECT_VERSION=1 CI_COMMIT_SHORT_SHA=1
-RUN go build -ldflags="-s -w -X 'main.VERSION=$PROJECT_VERSION' -X main.COMMIT=$CI_COMMIT_SHORT_SHA" -o app cmd/api/main.go
+RUN go build -o app cmd/api/main.go
 
 
 ### Build Docker Image
