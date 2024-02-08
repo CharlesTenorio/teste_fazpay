@@ -23,7 +23,7 @@ func getAllProducts(service product.ProductServiceInterface) http.Handler {
 func getProduct(service product.ProductServiceInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		externalID := r.URL.Query().Get("id")
+		externalID := r.Header.Get("id")
 
 		if externalID == "" {
 			ErroHttpMsgProductIdIsRequired.Write(w)
@@ -97,7 +97,7 @@ func createProduct(service product.ProductServiceInterface) http.HandlerFunc {
 func updateProduct(service product.ProductServiceInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		externalID := r.URL.Query().Get("id")
+		externalID := r.Header.Get("id")
 
 		if externalID == "" {
 			ErroHttpMsgProductIdIsRequired.Write(w)
@@ -137,9 +137,8 @@ func updateProduct(service product.ProductServiceInterface) http.HandlerFunc {
 func deleteProduct(service product.ProductServiceInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		externalID := r.URL.Query().Get("id")
-		logger.Info("externalID")
-		logger.Info(externalID)
+		externalID := r.Header.Get("id")
+
 		if externalID == "" {
 			ErroHttpMsgProductIdIsRequired.Write(w)
 			return
