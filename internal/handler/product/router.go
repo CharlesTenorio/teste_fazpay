@@ -9,11 +9,11 @@ import (
 
 func RegisterProductAPIHandlers(r chi.Router, service product.ProductServiceInterface) {
 	r.Route("/api/v1/prd", func(r chi.Router) {
-		r.Post("/product", createProduct(service))
-		r.Patch("/product/", updateProduct(service))
-		r.Delete("/product/", deleteProduct(service))
-		r.Get("/product/", getProduct(service))
-		r.Get("/products", func(w http.ResponseWriter, r *http.Request) {
+		r.Post("/add", createProduct(service))
+		r.Patch("/update/", updateProduct(service))
+		r.Delete("/delete/", deleteProduct(service))
+		r.Get("/getbyid/", getProduct(service))
+		r.Get("/all", func(w http.ResponseWriter, r *http.Request) {
 			handler := getAllProducts(service)
 			handler.ServeHTTP(w, r)
 		})
